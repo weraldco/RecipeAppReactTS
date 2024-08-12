@@ -1,12 +1,10 @@
 import { useContext } from 'react';
 import { NavLink } from 'react-router-dom';
-import { GlobalContext } from './context';
+import { ContextT, GlobalContext } from './context';
 
 export default function Navbar() {
-	const { searchParams, setSearchParams, handleSubmit, isLoading } =
+	const { searchParams, setSearchParams, handleSubmit }: ContextT =
 		useContext(GlobalContext);
-	console.log(searchParams);
-	const apiKey = process.env.REACT_APP_API_URL;
 
 	return (
 		<>
