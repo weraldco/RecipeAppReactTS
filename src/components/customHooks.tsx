@@ -1,7 +1,9 @@
 import { Context, useContext, useEffect, useState } from 'react';
+import { ContextT } from './context';
 
 export function useFetchData(givenUrl: string, context: Context<unknown>) {
-	const { recipeDetailsData, setRecipeDetailsData } = useContext(context);
+	const { recipeDetailsData, setRecipeDetailsData } =
+		useContext<ContextT>(context);
 	const [isLoading, setIsLoading] = useState(false);
 	const [error, setError] = useState('');
 	async function fetchData(url: string) {

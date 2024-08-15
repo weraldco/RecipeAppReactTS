@@ -6,12 +6,12 @@ export const GlobalContext = createContext<ContextT>();
 
 export type ContextT = {
 	searchParams?: string;
-	setSearchParams;
+	setSearchParams: unknown;
 	handleSubmit: (e: Event) => void;
 	isLoading?: boolean;
 	recipeList?: RecipeT[];
-	recipeDetailsData: RecipeT;
-	setRecipeDetailsData;
+	recipeDetailsData?: RecipeT;
+	setRecipeDetailsData: unknown;
 	handleAddFavorite: (recipeDetailsData: RecipeT) => void;
 	favoriteList?: FavoriteT[];
 };
@@ -93,7 +93,7 @@ export default function GlobalState({ children }: GlobalStateProps) {
 		}
 	}
 
-	const contextValue: ContextT = {
+	const defaultValue: ContextT = {
 		searchParams,
 		setSearchParams,
 		handleSubmit,
@@ -106,7 +106,7 @@ export default function GlobalState({ children }: GlobalStateProps) {
 	};
 	return (
 		<>
-			<GlobalContext.Provider value={contextValue}>
+			<GlobalContext.Provider value={defaultValue}>
 				{children}
 			</GlobalContext.Provider>
 		</>

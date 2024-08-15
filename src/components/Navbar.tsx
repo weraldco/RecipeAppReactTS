@@ -3,8 +3,8 @@ import { NavLink } from 'react-router-dom';
 import { ContextT, GlobalContext } from './context';
 
 export default function Navbar() {
-	const { searchParams, setSearchParams, handleSubmit }: ContextT =
-		useContext(GlobalContext);
+	const { searchParams, setSearchParams, handleSubmit } =
+		useContext<ContextT>(GlobalContext);
 
 	return (
 		<>
