@@ -12,7 +12,7 @@ export default function Home() {
 		if (response.ok) {
 			const data = await response.json();
 			if (data) {
-				setRecipeList(data.recipes);
+				setRecipeList(data.data.recipes);
 			}
 			setIsLoading(false);
 		} else {
@@ -21,9 +21,8 @@ export default function Home() {
 		}
 	}
 	useEffect(() => {
-		fetchData(`https://forkify-api.herokuapp.com/api/search?q=pizza`);
+		fetchData(`https://forkify-api.herokuapp.com/api/v2/recipes?search=pizza`);
 	}, []);
-
 	return (
 		<>
 			<div>
