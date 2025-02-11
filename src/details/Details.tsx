@@ -1,13 +1,15 @@
+/* eslint-disable react-hooks/exhaustive-deps */
 import { useContext, useEffect, useState } from 'react';
 import { useParams } from 'react-router';
 import { GlobalContext } from '../components/context';
 import RecipeDetails from '../components/RecipeDetails';
 export default function Details() {
-	const { recipeDetailsData, setRecipeDetailsData } = useContext(GlobalContext);
+	const { setRecipeDetailsData } = useContext(GlobalContext);
 	const [isLoading, setIsLoading] = useState(false);
 	const [error, setError] = useState('');
 	const { id } = useParams();
 
+	console.log(error);
 	async function fetchData(url: string) {
 		setIsLoading(true);
 		const response = await fetch(url);

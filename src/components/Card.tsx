@@ -1,6 +1,10 @@
 import { Link } from 'react-router-dom';
+import { RecipeT } from './context';
 
-export default function Card({ recipe }) {
+interface Props {
+	recipe: RecipeT;
+}
+export default function Card({ recipe }: Props) {
 	const { id, image_url, publisher, title } = recipe;
 
 	return (

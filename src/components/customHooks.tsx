@@ -1,11 +1,15 @@
-import { Context, useContext, useEffect, useState } from 'react';
+/* eslint-disable @typescript-eslint/no-explicit-any */
+import { useContext, useEffect, useState } from 'react';
 import { ContextT } from './context';
 
-export function useFetchData(givenUrl: string, context: Context<unknown>) {
+export function useFetchData(givenUrl: string, context: any) {
 	const { recipeDetailsData, setRecipeDetailsData } =
 		useContext<ContextT>(context);
+
 	const [isLoading, setIsLoading] = useState(false);
+
 	const [error, setError] = useState('');
+
 	async function fetchData(url: string) {
 		try {
 			setIsLoading(true);

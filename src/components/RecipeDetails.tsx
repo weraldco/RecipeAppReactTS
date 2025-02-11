@@ -1,13 +1,9 @@
 import { useContext } from 'react';
 import { GlobalContext } from './context';
 
-export default function RecipeDetails({ id }) {
-	const {
-		recipeDetailsData,
-		setRecipeDetailsData,
-		handleAddFavorite,
-		favoriteList,
-	} = useContext(GlobalContext);
+export default function RecipeDetails({ id }: { id: string | undefined }) {
+	const { recipeDetailsData, handleAddFavorite, favoriteList } =
+		useContext(GlobalContext);
 
 	return (
 		<>

@@ -1,19 +1,37 @@
-import { createContext, ReactNode, useState } from 'react';
+import {
+	createContext,
+	Dispatch,
+	FormEventHandler,
+	ReactNode,
+	SetStateAction,
+	useState,
+} from 'react';
 import { useNavigate } from 'react-router';
 import { useLocalstorage } from './customHooks';
 
-export const GlobalContext = createContext<ContextT>();
-
+const defaultValue: ContextT = {
+	searchParams: '',
+	setSearchParams: () => {},
+	handleSubmit: () => {},
+	isLoading: true,
+	recipeList: [],
+	recipeDetailsData: undefined,
+	setRecipeDetailsData: () => {},
+	setRecipeList: () => {},
+	handleAddFavorite: () => {},
+	favoriteList: [],
+};
 export type ContextT = {
 	searchParams?: string;
-	setSearchParams: unknown;
-	handleSubmit: (e: Event) => void;
+	setSearchParams: Dispatch<SetStateAction<string>>;
+	handleSubmit: FormEventHandler<HTMLFormElement>;
 	isLoading?: boolean;
 	recipeList?: RecipeT[];
 	recipeDetailsData?: RecipeT;
-	setRecipeDetailsData: unknown;
+	setRecipeDetailsData: Dispatch<SetStateAction<RecipeT | undefined>>;
+	setRecipeList: Dispatch<SetStateAction<RecipeT[]>>;
 	handleAddFavorite: (recipeDetailsData: RecipeT) => void;
-	favoriteList?: FavoriteT[];
+	favoriteList: FavoriteT[];
 };
 type GlobalStateProps = {
 	children: ReactNode;
@@ -25,7 +43,7 @@ type IngridientsT = {
 	description?: string;
 };
 
-type RecipeT = {
+export type RecipeT = {
 	id?: string;
 	title?: string;
 	image_url?: string;
@@ -41,18 +59,22 @@ export type FavoriteT = {
 	ingredients?: IngridientsT[];
 };
 
+export const GlobalContext = createContext<ContextT>(defaultValue);
+
 export default function GlobalState({ children }: GlobalStateProps) {
 	const [searchParams, setSearchParams] = useState('');
 	const [error, setError] = useState('');
 	const [isLoading, setIsLoading] = useState(false);
-	const [recipeList, setRecipeList] = useState<[]>([]);
+	const [recipeList, setRecipeList] = useState<RecipeT[]>([]);
 	const [recipeDetailsData, setRecipeDetailsData] = useState<RecipeT>();
 	const [favoriteList, setFavoriteList] = useLocalstorage<FavoriteT[]>(
 		'favorites',
 		[]
 	);
+	console.log(error);
 
 	const navigate = useNavigate();
+
 	function handleAddFavorite(currentDetailsData: RecipeT) {
 		const cpyFavoriteList = [...favoriteList];
 
@@ -101,6 +123,7 @@ export default function GlobalState({ children }: GlobalStateProps) {
 		recipeList,
 		recipeDetailsData,
 		setRecipeDetailsData,
+		setRecipeList,
 		handleAddFavorite,
 		favoriteList,
 	};
